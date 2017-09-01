@@ -22,32 +22,66 @@ const QUIZ = {
 			correctAnswer: 0,
 		},
 		{
-			text:"Which was teh first national park in the United States?",
+			text:"Which was the first national park in the United States?",
 			answers:["Grand Canyon National Park", "Rocky Mountain National Park", "Great Smokey Mountains National Park", "Yellowstone National Park"],
 			correctAnswer: 2,
 		},
 	],
 }
 
-
-	
-	function showQuestion() {
-		let html = `<h3>${QUIZ.questions[currentQuestion].text}</h3>`
-		$("#quiz").html(html); 
+function showQuestion() {
+	let html = 
+		`<h3>${QUIZ.questions[currentQuestion].text}</h3>
+		<form id="chooseAnswer">`
+	for(let i = 0; i < QUIZ.questions[currentQuestion].answers.length; i++) {
+		html+=
+		`<input type = "radio" name = "answer" value = "${i}">${QUIZ.questions[currentQuestion].answers[i]}<br>`
 	}
-//Display start page/question page
-//listen for submit event on answer
-	//determine if answer is correct
-	function identifyCorrectAnswer(userInput, correctAnswer){
-		//some code here to identify is answer is correct T or F 
+	html +=
+		`<input type = "submit" value = "submit">
+	</form>`
+
+	$("#quiz").html(html); 
+}
+
+function handleSubmit(){
+ 	$('#quiz').on("submit", "#chooseAnswer", function(e) {
+	 	e.preventDefault();
+	 	let userAnswer = $("input[name='answer']:checked").val();
+	 	identifyCorrectAnswer(userAnswer);
+	 	currentQuestion++; 
+	 	if (currentQuestion < QUIZ.questions.length) {
+	 		showQuestion();
+	 	} else {
+	 		showResults();
+	 	}
+	});
+}
+
+function identifyCorrectAnswer(userAnswer) {
+	if (userAnswer == QUIZ.questions[currentQuestion].correctAnswer){
+		score++; 
+		console.log("correct");
+	} else {
+		console.log("wrong");
 	}
-	//increment correct counter
+	 
+}
 
-	let score = 0;
-	
-	let currentQuestion = 0; 
-	$("#title").text(QUIZ.name);
-	showQuestion();
+function showResults(){
+	let html = 
+	`<h2>You got ${score} out of ${QUIZ.questions.length} correct!</h2>`
 
-	
+	$("#quiz").html(html); 
+}
+
+
+let score = 0;
+
+
+let currentQuestion = 0; 
+$("#title").text(QUIZ.name);
+showQuestion();
+handleSubmit();
+
 //button click event to move to next question page
