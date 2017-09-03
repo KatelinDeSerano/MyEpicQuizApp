@@ -29,17 +29,35 @@ const QUIZ = {
 	],
 }
 
+function startPage() {
+	let html = 
+			`<h2>Welcome to my National Parks Quiz!<h2><br>
+			<form id ="startButton">
+			<button type = "submit">Let's begin</button>
+			</form>`
+
+	$("#quiz").html(html);
+}
+
+function handleStartButton() {
+	$("#quiz").on("submit", "#startButton", function(e) {
+	 	e.preventDefault();
+	 	showQuestion ();
+	});
+}
+
 function showQuestion() {
 	let html = 
-		`<h3>${QUIZ.questions[currentQuestion].text}</h3>
-		<form id="chooseAnswer">`
+			`<h3>${QUIZ.questions[currentQuestion].text}</h3>`
 	for(let i = 0; i < QUIZ.questions[currentQuestion].answers.length; i++) {
-		html+=
-		`<input type = "radio" name = "answer" value = "${i}">${QUIZ.questions[currentQuestion].answers[i]}<br>`
+		html +=
+		`<form id="chooseAnswer">
+			<input type = "radio" name = "answer" value = "${i}">${QUIZ.questions[currentQuestion].answers[i]}<br>`
 	}
 	html +=
 		`<input type = "submit" value = "submit">
-	</form>`
+		</form>
+		<p>Question #${currentQuestion + 1} out of ${QUIZ.questions.length}</p> `
 
 	$("#quiz").html(html); 
 }
@@ -49,23 +67,32 @@ function handleSubmit(){
 	 	e.preventDefault();
 	 	let userAnswer = $("input[name='answer']:checked").val();
 	 	identifyCorrectAnswer(userAnswer);
-	 	currentQuestion++; 
+	});
+}
+
+
+function identifyCorrectAnswer(userAnswer) {
+	let feedback
+	if (userAnswer == QUIZ.questions[currentQuestion].correctAnswer){
+		score++; 
+		feedback = "<h2>correct!</h2>"
+	} else {
+		feedback = `<h2>Incorrect, the correct answer was ${QUIZ.questions[currentQuestion].answers[QUIZ.questions[currentQuestion].correctAnswer]}</h2>`
+	}
+	let html = feedback + "<form id='nextButton'><button type='submit'>next</button></form>"; 
+	$("#quiz").html(html);
+}
+
+function handleNextButton() {
+	$("#quiz").on("submit", "#nextButton", function(e) {
+	 	e.preventDefault();
+	 	currentQuestion++;
 	 	if (currentQuestion < QUIZ.questions.length) {
 	 		showQuestion();
 	 	} else {
 	 		showResults();
 	 	}
 	});
-}
-
-function identifyCorrectAnswer(userAnswer) {
-	if (userAnswer == QUIZ.questions[currentQuestion].correctAnswer){
-		score++; 
-		console.log("correct");
-	} else {
-		console.log("wrong");
-	}
-	 
 }
 
 function showResults(){
@@ -75,13 +102,11 @@ function showResults(){
 	$("#quiz").html(html); 
 }
 
-
+startPage();
+handleStartButton();
+handleNextButton();
 let score = 0;
-
-
 let currentQuestion = 0; 
 $("#title").text(QUIZ.name);
-showQuestion();
+//showQuestion();
 handleSubmit();
-
-//button click event to move to next question page
