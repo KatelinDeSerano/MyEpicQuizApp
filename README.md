@@ -1,2 +1,0 @@
-# MyEpicQuizApp
-Quiz App Project
