@@ -5,36 +5,48 @@ const QUIZ = {
 			text:"Which was the first national park in the United States?",
 			answers:["Yosemite National Park", "Yellowstone National Park", "Zion National Park", "Grand Canyon National Park"],
 			correctAnswer: 1,
+			image: "black-bear.jpg",
+			imageAlt: "Black Bear",
 		},
 		{
 			text:"Which State has the most national parks?",
 			answers:["California", "Alaska", "Colorado", "Wyoming"],
 			correctAnswer: 0,
+			image: "black-bear.jpg",
+			imageAlt: "Black Bear",
 		},
 		{
 			text:"Which U.S. President had the greatest contribution to our National Parks?",
 			answers:["John F. Kennedy", "Herbert Hoover", "Theodore Roosevelt", "Abraham Lincoln"],
 			correctAnswer: 2,
+			image: "black-bear.jpg",
+			imageAlt: "Black Bear",
 		},
 		{
 			text:"In what year was the National Park Service founded? ",
 			answers:["1916", "1938", "1950", "1899"],
 			correctAnswer: 0,
+			image: "black-bear.jpg",
+			imageAlt: "Black Bear",
 		},
 		{
 			text:"Which was the first national park in the United States?",
 			answers:["Grand Canyon National Park", "Rocky Mountain National Park", "Great Smokey Mountains National Park", "Yellowstone National Park"],
 			correctAnswer: 2,
+			image: "black-bear.jpg",
+			imageAlt: "Black Bear",
 		},
 	],
 }
 
 function startPage() {
 	let html = 
-			`<h2>Welcome to my National Parks Quiz!<h2><br>
+			`<div id="startPage">
+			<h2>Welcome to my National Parks Quiz!<h2><br>
 			<form id ="startButton">
-			<button type = "submit">Let's begin</button>
-			</form>`
+			<button class="btn btn-lg btn-default" type="submit">Let's begin</button>
+			</form>
+			</div>`
 
 	$("#quiz").html(html);
 }
@@ -47,26 +59,41 @@ function handleStartButton() {
 }
 
 function showQuestion() {
-	let html = 
-			`<h3>${QUIZ.questions[currentQuestion].text}</h3>`
-	for(let i = 0; i < QUIZ.questions[currentQuestion].answers.length; i++) {
-		html +=
-		`<form id="chooseAnswer">
-			<input type = "radio" name = "answer" value = "${i}">${QUIZ.questions[currentQuestion].answers[i]}<br>`
-	}
-	html +=
-		`<input type = "submit" value = "submit">
-		</form>
-		<p>Question #${currentQuestion + 1} out of ${QUIZ.questions.length}</p> `
+	let html = `<div class="col-md-12">
+					<h3>${QUIZ.questions[currentQuestion].text}</h3>
+				</div>`
 
+	html += `<div class="row" style="background-color: yellow">`
+	html += `<form id="chooseAnswer">`
+	html += `<div class="col-md-6">`
+	for(let i = 0; i < QUIZ.questions[currentQuestion].answers.length; i++) {
+		
+		html += `<div class="options"><input type="radio" name="answer" value="${i}">${QUIZ.questions[currentQuestion].answers[i]}<br></div>`
+	}
+
+	html += `<button type="submit" class="btn btn-md btn-default">submit</button></div>`
+	html += `<div class="col-md-6" id="image" style="background-color:blue"><img src="${QUIZ.questions[currentQuestion].image}" alt="${QUIZ.questions[currentQuestion].imageAlt}"></div>`
+	html += `</div>`
+	html +=`</form>`
+	html +=	`<p>Question #${currentQuestion + 1} out of ${QUIZ.questions.length}</p>`
+	let percent = ((currentQuestion + 1)/QUIZ.questions.length)*100; 
+	html += `<div class="progress">`
+  	html += `<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="${currentQuestion + 1}" aria-valuemin="0" aria-valuemax="${QUIZ.questions.length}" style="width:${percent}%;">
+    		Question #${currentQuestion + 1} out of ${QUIZ.questions.length}`
+  	html += `</div>`
+	html += `</div>`
+	
 	$("#quiz").html(html); 
 }
 
-function handleSubmit(){
+function handleSubmit() {
+	console.log("test");
  	$('#quiz').on("submit", "#chooseAnswer", function(e) {
+	 	console.log("test2"); 	
 	 	e.preventDefault();
 	 	let userAnswer = $("input[name='answer']:checked").val();
 	 	identifyCorrectAnswer(userAnswer);
+	 	
 	});
 }
 
@@ -76,10 +103,17 @@ function identifyCorrectAnswer(userAnswer) {
 	if (userAnswer == QUIZ.questions[currentQuestion].correctAnswer){
 		score++; 
 		feedback = "<h2>correct!</h2>"
+		
 	} else {
-		feedback = `<h2>Incorrect, the correct answer was ${QUIZ.questions[currentQuestion].answers[QUIZ.questions[currentQuestion].correctAnswer]}</h2>`
+		feedback = `<h2>Incorrect, the correct answer was "${QUIZ.questions[currentQuestion].answers[QUIZ.questions[currentQuestion].correctAnswer]}"</h2>`
 	}
-	let html = feedback + "<form id='nextButton'><button type='submit'>next</button></form>"; 
+	let html = feedback + "<form id='nextButton'><button type='submit' class='btn btn-default'>next</button></form>";
+	let percent = ((currentQuestion + 1)/QUIZ.questions.length)*100; 
+	html += `<div class="progress">`
+  	html += `<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="${currentQuestion + 1}" aria-valuemin="0" aria-valuemax="${QUIZ.questions.length}" style="width:${percent}%;">
+    		Question #${currentQuestion + 1} out of ${QUIZ.questions.length}`
+  	html += `</div>`
+	html += `</div>` 
 	$("#quiz").html(html);
 }
 
