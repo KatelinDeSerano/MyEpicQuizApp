@@ -44,7 +44,7 @@ function startPage() {
 			`<div id="startPage">
 			<h2>Welcome to my National Parks Quiz!<h2><br>
 			<form id ="startButton">
-			<button class="btn btn-lg btn-default" type="submit">Let's begin</button>
+			<button class="btn btn-lg btn-default" type="submit">Let's begin!</button>
 			</form>
 			</div>`
 
@@ -63,24 +63,25 @@ function showQuestion() {
 					<h3>${QUIZ.questions[currentQuestion].text}</h3>
 				</div>`
 
-	html += `<div class="row" style="background-color: yellow">`
+	html += `<div class="row">`
 	html += `<form id="chooseAnswer">`
 	html += `<div class="col-md-6">`
 	for(let i = 0; i < QUIZ.questions[currentQuestion].answers.length; i++) {
 		
-		html += `<div class="options"><input type="radio" name="answer" value="${i}">${QUIZ.questions[currentQuestion].answers[i]}<br></div>`
+		html += `<div class="options"><input type="radio" name="answer" value="${i}"> ${QUIZ.questions[currentQuestion].answers[i]}<br></div>`
 	}
 
-	html += `<button type="submit" class="btn btn-md btn-default">submit</button></div>`
-	html += `<div class="col-md-6" id="image" style="background-color:blue"><img src="${QUIZ.questions[currentQuestion].image}" alt="${QUIZ.questions[currentQuestion].imageAlt}"></div>`
+	html += `<button type="submit" class="btn btn-block btn-default" id="submitButton">submit</button></div>`
+	html += `<div class="col-md-6" id="imagebox"><img id="image" src="${QUIZ.questions[currentQuestion].image}" alt="${QUIZ.questions[currentQuestion].imageAlt}"></div>`
 	html += `</div>`
 	html +=`</form>`
-	html +=	`<p>Question #${currentQuestion + 1} out of ${QUIZ.questions.length}</p>`
 	let percent = ((currentQuestion + 1)/QUIZ.questions.length)*100; 
+	html += `<div class="progressbar">`
 	html += `<div class="progress">`
   	html += `<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="${currentQuestion + 1}" aria-valuemin="0" aria-valuemax="${QUIZ.questions.length}" style="width:${percent}%;">
     		Question #${currentQuestion + 1} out of ${QUIZ.questions.length}`
   	html += `</div>`
+	html += `</div>`
 	html += `</div>`
 	
 	$("#quiz").html(html); 

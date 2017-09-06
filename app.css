@@ -1,6 +1,6 @@
 body {
 	display: block;
-	background-color: #33cc33;
+	background-color: #F8F8F6;
 }
 
 #title {
@@ -12,7 +12,7 @@ body {
 	padding: 20px;
 	border: 2px black solid;
 	margin: auto;
-	background-color: pink;
+	background-color: #BEBEAE;
 	
 }
 
@@ -22,20 +22,38 @@ body {
 
 .options {
 	  display: block;
-	  margin: 15px;
-	  background-color: white;
+	  margin-top: 15px;
+	  background-color: #fff;
 	  padding: 15px;
 	  box-shadow: 0px 2px 6px rgba(0,0,0,1);
 	  border-radius: 5px;
    
 }
 
-.options:hover {
-  display: block;
-  margin: 15px;
-  background-color: #99ccff;
-  padding: 15px;
-  box-shadow: 0px 2px 6px rgba(0,0,0,1);
-  border-radius: 5px;
+#imagebox {
+	margin-top: 20px;
+	text-align: center;
 }
+
+#image {
+	box-shadow: 0px 2px 6px rgba(0,0,0,1); 
+}
+
+.options:hover {
+   display: block;
+	  margin-top: 15px;
+	  background-color: #7CA982;
+	  padding: 15px;
+	  box-shadow: 0px 2px 6px rgba(0,0,0,1);
+	  border-radius: 5px;
+}
+
+.progressbar {
+	padding-top: 20px;
+}
+
+#submitButton {
+	margin-top: 25px;
+}
+
 
