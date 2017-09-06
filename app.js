@@ -61,28 +61,28 @@ function handleStartButton() {
 function showQuestion() {
 	let html = `<div class="col-md-12">
 					<h3>${QUIZ.questions[currentQuestion].text}</h3>
-				</div>`
+				</div>
+				<div class="row">
+				<form id="chooseAnswer">
+				<div class="col-md-6">`
 
-	html += `<div class="row">`
-	html += `<form id="chooseAnswer">`
-	html += `<div class="col-md-6">`
 	for(let i = 0; i < QUIZ.questions[currentQuestion].answers.length; i++) {
 		
 		html += `<div class="options"><input type="radio" name="answer" value="${i}"> ${QUIZ.questions[currentQuestion].answers[i]}<br></div>`
 	}
 
-	html += `<button type="submit" class="btn btn-block btn-default" id="submitButton">submit</button></div>`
-	html += `<div class="col-md-6" id="imagebox"><img id="image" src="${QUIZ.questions[currentQuestion].image}" alt="${QUIZ.questions[currentQuestion].imageAlt}"></div>`
-	html += `</div>`
-	html +=`</form>`
+	html += `<button type="submit" class="btn btn-block btn-default" id="submitButton">submit</button></div>
+			<div class="col-md-6" id="imagebox"><img id="image" src="${QUIZ.questions[currentQuestion].image}" alt="${QUIZ.questions[currentQuestion].imageAlt}"></div>
+			</div>
+			</form>`
 	let percent = ((currentQuestion + 1)/QUIZ.questions.length)*100; 
-	html += `<div class="progressbar">`
-	html += `<div class="progress">`
-  	html += `<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="${currentQuestion + 1}" aria-valuemin="0" aria-valuemax="${QUIZ.questions.length}" style="width:${percent}%;">
-    		Question #${currentQuestion + 1} out of ${QUIZ.questions.length}`
-  	html += `</div>`
-	html += `</div>`
-	html += `</div>`
+	html += `<div class="progressbar">
+			<div class="progress">
+			<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="${currentQuestion + 1}" aria-valuemin="0" aria-valuemax="${QUIZ.questions.length}" style="width:${percent}%;">
+				Question #${currentQuestion + 1} out of ${QUIZ.questions.length}
+  			</div>
+			</div>
+			</div>`
 	
 	$("#quiz").html(html); 
 }
@@ -110,11 +110,12 @@ function identifyCorrectAnswer(userAnswer) {
 	}
 	let html = feedback + "<form id='nextButton'><button type='submit' class='btn btn-default'>next</button></form>";
 	let percent = ((currentQuestion + 1)/QUIZ.questions.length)*100; 
-	html += `<div class="progress">`
-  	html += `<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="${currentQuestion + 1}" aria-valuemin="0" aria-valuemax="${QUIZ.questions.length}" style="width:${percent}%;">
-    		Question #${currentQuestion + 1} out of ${QUIZ.questions.length}`
-  	html += `</div>`
-	html += `</div>` 
+	html += `<div class="progressbar">
+			<div class="progress">
+  			<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="${currentQuestion + 1}" aria-valuemin="0" aria-valuemax="${QUIZ.questions.length}" style="width:${percent}%;">
+    			Question #${currentQuestion + 1} out of ${QUIZ.questions.length}
+  			</div>
+			</div>` 
 	$("#quiz").html(html);
 }
 
@@ -130,7 +131,7 @@ function handleNextButton() {
 	});
 }
 
-function showResults(){
+function showResults() {
 	let html = 
 	`<h2>You got ${score} out of ${QUIZ.questions.length} correct!</h2>`
 
