@@ -68,7 +68,7 @@ function showQuestion() {
 
 	for(let i = 0; i < QUIZ.questions[currentQuestion].answers.length; i++) {
 		
-		html += `<div class="options"><input type="radio" name="answer" value="${i}"> ${QUIZ.questions[currentQuestion].answers[i]}<br></div>`
+		html += `<div class="options"><label><input type="radio" name="answer" value="${i}"> ${QUIZ.questions[currentQuestion].answers[i]}</label><br></div>`
 	}
 
 	html += `<button type="submit" class="btn btn-block btn-default" id="submitButton">submit</button></div>
