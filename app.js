@@ -68,7 +68,7 @@ function showQuestion() {
 
 	for(let i = 0; i < QUIZ.questions[currentQuestion].answers.length; i++) {
 		
-		html += `<div class="options"><label><input type="radio" name="answer" value="${i}"> ${QUIZ.questions[currentQuestion].answers[i]}</label><br></div>`
+		html += `<label class="options"><input type="radio" name="answer" value="${i}"> ${QUIZ.questions[currentQuestion].answers[i]}</label><br>`
 	}
 
 	html += `<button type="submit" class="btn btn-block btn-default" id="submitButton">submit</button></div>
@@ -103,7 +103,7 @@ function identifyCorrectAnswer(userAnswer) {
 	let feedback
 	if (userAnswer == QUIZ.questions[currentQuestion].correctAnswer){
 		score++; 
-		feedback = "<h2>correct!</h2>"
+		feedback = "<h2>Correct!</h2>"
 		
 	} else {
 		feedback = `<h2>Incorrect, the correct answer was "${QUIZ.questions[currentQuestion].answers[QUIZ.questions[currentQuestion].correctAnswer]}"</h2>`
