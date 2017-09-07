@@ -133,10 +133,22 @@ function handleNextButton() {
 
 function showResults() {
 	let html = 
-	`<h2>You got ${score} out of ${QUIZ.questions.length} correct!</h2>`
+	`<h2>You got ${score} out of ${QUIZ.questions.length} correct!</h2><br>
+	<form id ="returnButton">
+		<button class="btn btn-lg btn-default" type="submit">Try again?</button>
+	</form>`
 
 	$("#quiz").html(html); 
 }
+
+function handleReturnButton() {
+	$("#quiz").on("submit", "#returnButton", function(e) {
+	 	e.preventDefault();
+	 	startPage();
+	});
+}
+
+
 
 startPage();
 handleStartButton();
